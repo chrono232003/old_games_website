@@ -1,6 +1,5 @@
 <?php
 	require 'header.php';
-	require "connect.php";
 ?>
     <!-- ################################################################################################ -->
     <div id="homepage" class="clear">
@@ -9,14 +8,14 @@
       <!-- ################################################################################################ -->
       <script>
           //edit title and meta tags
-          
+
           var getQueryString = function ( field, url ) {
             var href = url ? url : window.location.href;
             var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
             var string = reg.exec(href);
             return string ? string[1] : null;
         };
-          
+
           if (getQueryString('cat')) {
               document.title = "Categories - " + getQueryString('cat') + " - Great Old Games";
               document.querySelector('meta[name="description"]').setAttribute("content", "Choose a DOS game to play in the " + getQueryString('cat') + " category");
@@ -25,15 +24,15 @@
             document.querySelector('meta[name="description"]').setAttribute("content", "Choose a DOS game to play or download by category");
           }
       </script>
-      
+
       <section class="clear">
         <ul class="nospace center clear">
 			<center><h1>Categories</h1></center>
 			 <ul class="nospace center clear">
 				<li class="one_third first" style="text-align:left; font-size:20px;">
 					<?php
-						$sql = "SELECT DISTINCT Genre FROM games_DOS";
-						if ($result=mysqli_query($conn,$sql)) {
+						$result = grab_genres($conn);
+						if ($result) {
 								while ($row=mysqli_fetch_row($result)) {
 									echo "<a href = 'categories.php?cat=" . $row[0] . "'>" . $row[0] . "</a><br />";
 								}
@@ -41,18 +40,18 @@
 					?>
 			    </li>
 				<li class="one_third" style="text-align:left;">
-				
+
 					<?php
 						if(!empty($_GET["cat"])) {
-							$sql="SELECT Title, Pic, Description, GameFile, ID FROM games_DOS WHERE Genre = '" . $_GET['cat'] . "'";
-							if ($result=mysqli_query($conn,$sql)) {
+								$result = get_games_by_category($conn);
+							if ($result) {
 										while ($row=mysqli_fetch_row($result)) {
 											echo "<a href='game.php?Game=" . $row[4] . "'>" . $row[0] . "</a><br />";
 										}
 							}
 						}
 					?>
-				
+
 				</li>
 				<li>
 				    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

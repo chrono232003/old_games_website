@@ -24,10 +24,32 @@ $conn = $a->connect_to_db();
 /**************************************************************************/
 
 /**********************************QUERIES*********************************/
-//GAMES DISPLAYED ON THE HOME PAGE
+
+/***
+*PAGES: HOME, CATEGORIES
+*/
+//GRAB GENRE
+function grab_genres($conn) {
+  $sql = "SELECT DISTINCT Genre FROM games_DOS";
+  return mysqli_query($conn,$sql);
+}
+
+/***
+*PAGES: HOME
+*/
 function get_home_list($conn) {
   $sql="SELECT Title, Pic, Description, GameFile, ID FROM games_DOS Where ID IN (1393, 1389, 1390, 1391, 1392, 849)";
   return mysqli_query($conn,$sql);
 }
+
+/***
+*PAGES:CATEGORIES
+*/
+
+//GET GAME LIST BY CATEGORY
+function get_games_by_category($conn) {
+    $sql="SELECT Title, Pic, Description, GameFile, ID FROM games_DOS WHERE Genre = '" . $_GET['cat'] . "'";
+    return mysqli_query($conn,$sql);
+  }
 
 ?>

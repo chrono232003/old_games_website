@@ -4,7 +4,7 @@ if (isset($_SESSION['username']) || !empty($_SESSION['username'])) {
 	$username = $_SESSION['username'];
 }
 
-if(isset($_POST['logoutbutton'])) { 
+if(isset($_POST['logoutbutton'])) {
 	session_destroy();
 }
 ?>
@@ -49,7 +49,7 @@ if(isset($_POST['logoutbutton'])) {
 					echo "</fieldset>";
 					echo "</form>";
 					echo "</li>";
-			
+
 		} else {
 			echo "<li><span></span><a href='register.php'><b>Login/Register</b></a></li>";
 		}
@@ -70,9 +70,9 @@ if(isset($_POST['logoutbutton'])) {
           <li class="last-child"><a href="categories.php" title="Great Old Games - Categories">Categories</a></li>
         </ul>
       </li>
-	  
-	  
-	  
+
+
+
       <li><a class="drop" href="#" title="Elements">By First Letter</a>
         <ul>
 			<li><a href = 'search.php?gamesbyletter=[0-9]'>First Letter [0-9]</a></li>
@@ -106,11 +106,11 @@ if(isset($_POST['logoutbutton'])) {
       </li>
       <li><a class="drop" href="#" title="Portfolio Layouts">By Category</a>
         <ul>
-		
+
 		<?php
 			require "connect.php";
-			$sql = "SELECT DISTINCT Genre FROM games_DOS";
-			if ($result=mysqli_query($conn,$sql)) {
+			$result = grab_genres($conn);
+			if ($result) {
 					while ($row=mysqli_fetch_row($result)) {
 						echo "<li><a href = 'categories.php?cat=" . $row[0] . "'>" . $row[0] . "</a></li>";
 					}
@@ -167,4 +167,3 @@ if(isset($_POST['logoutbutton'])) {
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 	</center>
-	
