@@ -24,7 +24,7 @@ $conn = $a->connect_to_db();
 /**************************************************************************/
 
 /**********************************QUERIES*********************************/
-//SELECT HOME PAGE
+//GAMES DISPLAYED ON THE HOME PAGE
 function get_home_list($conn) {
   $sql="SELECT Title, Pic, Description, GameFile, ID FROM games_DOS Where ID IN (1393, 1389, 1390, 1391, 1392, 849)";
   return mysqli_query($conn,$sql);
