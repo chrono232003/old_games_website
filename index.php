@@ -41,7 +41,7 @@
 				<br />
         <ul class="nospace center clear">
 			<?php
-				$result = get_home_list();
+				$result = get_home_list($conn);
 
 						$countrow = 1;
 						while ($row=mysqli_fetch_row($result)) {
