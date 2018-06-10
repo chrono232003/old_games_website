@@ -9,32 +9,24 @@
           <li><a href="index.php">Home Page</a></li>
           <li><a href="search.php?gamesbyletter=a">Browse by Letter</a></li>
           <li><a href="categories.php">Browse by Category</a></li>
-		  <!--
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Gallery</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">Online Shop</a></li>
-		  -->
+
         </ul>
       </nav>
     </div>
     <div class="one_third">
       <h2 class="footer_title">Latest Gallery</h2>
       <ul id="ft_gallery" class="nospace spacing clear">
-	  
+
 	  <?php
-				require "connect.php";
-				$sql="SELECT ID, Pic, Title FROM games_DOS Where Pic <> '' ORDER BY DateAdded DESC LIMIT 9";
-				if ($result=mysqli_query($conn,$sql)) {
+				if ($result=$query->get_footer_pics()) {
 					$countrow = 0;
 					while ($row=mysqli_fetch_row($result)) {
 							if ($countrow % 3) {
 								echo "<li class='one_third'><a href='game.php?Game=" . $row[0] . "'><img src='" . $row[1] . "' alt='" . $row[2] . " image' style='max-width:80px;'></a></li>";
-						
+
 								} else {
 								echo "<li class='one_third first'><a href='game.php?Game=" . $row[0] . "'><img src='" . $row[1] . "' alt='" . $row[2] . " image' style='max-width:80px;'></a></li>";
-							
+
 									}
 							$countrow +=1;
 					}
@@ -54,7 +46,7 @@
 
       </ul>
     </div>
-	
+
     <div class="one_third">
       <h2 class="footer_title">From Twitter</h2>
       <div class="tweet-container">

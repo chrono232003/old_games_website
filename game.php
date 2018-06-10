@@ -1,20 +1,19 @@
 <?php
-    require "connect.php";
     require 'header.php';
-	//if issue is reported 
-	if(isset($_POST['reportIssue'])) { 
+	//if issue is reported
+	if(isset($_POST['reportIssue'])) {
 		// send email
 		$to = "chrono232003@yahoo.com";
 		$subject = "Issue with " . $_POST["ID"];
 		$message = "Issue with " . $_POST["ID"];
 		$headers = 'From: chrono232003@yahoo.com';
-		
+
 		mail($to, $subject, $message);
- 		
+
 	}
-	
+
 	if(isset($_POST['submitComment'])) {
-		
+
 		function conditionData($data) {
 			$data = trim($data);
 			$data = stripslashes($data);
@@ -22,41 +21,41 @@
 			return $data;
 		}
 
-		
+
 		if ($_POST["comment"] != "") {
 			$sql = "INSERT INTO comments (UserID, GameID, Comment) Values ('". $username ."','". htmlspecialchars($_GET["Game"]) ."','". conditionData($_POST["comment"]) ."')";
 			if ($conn->query($sql) === TRUE) {
-				echo "<script>$( document ).ready(function() {document.getElementById('commentsuccess').innerHTML = 'Comment Entered Successfully!';});</script>";		
+				echo "<script>$( document ).ready(function() {document.getElementById('commentsuccess').innerHTML = 'Comment Entered Successfully!';});</script>";
 			} else {
 				echo "console.log('Error inserting record: ' . $conn->error . ')";
 			}
 		} else {
-			
+
 		}
-	}	
-	
+	}
+
 	//if the downloadgame button is clicked, update our counter
 	if(isset($_POST['downloadUpdate'])) {
 	    if (!empty($_POST["downloadID"])) {
     	    $sqlUpdate="UPDATE games_DOS SET DownloadCount = DownloadCount + 1 WHERE ID =" . $_POST["downloadID"];
     	    if ($conn->query($sqlUpdate) === TRUE) {
-    	        
+
             } else {
                 echo "console.log('Error updating record: ' . $conn->error . ')";
             }
 	    }
 	}
-	
+
 ?>
 <script>
 	var fireAlert = function() {
         alert("Than you for reporting an issue on this page, we will be looking into it.");
 	}
-	
+
 	//check comment data
 	function checkCommentData() {
 		var comment = document.forms["commentForm"]["comment"].value;
-		
+
 		//check the values
 		var errorArr = [];
 		var regex = new RegExp('^[a-zA-Z0-9,.!? ]*$');
@@ -78,7 +77,7 @@
                 <?php
                     //see if the game play is available.
                     $sql="SELECT Active FROM games_DOS WHERE ID = " . htmlspecialchars($_GET["Game"]);
-			
+
         			if ($result=mysqli_query($conn,$sql)) {
         				while ($row=mysqli_fetch_row($result)) {
         				    if($row[0] == 1) {
@@ -98,7 +97,7 @@
         				}
         			}
                 ?>
-				
+
 				<!---------------COMMENTS SECTION----------------->
 				<hr />
 				<br />
@@ -120,7 +119,7 @@
 					echo "</form>";
 					echo "</div><br />";
 				}
-				
+
 				$sql = "SELECT * FROM comments WHERE GameID = '" . htmlspecialchars($_GET["Game"]) . "'";
 				if ($result=mysqli_query($conn,$sql)) {
 					if (mysqli_num_rows($result)!=0) {
@@ -136,23 +135,23 @@
 					echo "Error: " . $sql . "<br>" . $conn->error;
 				}
 				?>
-				
+
 				<!------------------------------------------------>
-				
+
 			</li>
 			<li class="one_half">
 		<?php
 			//require "connect.php";
 			//grab the game data from the data base
 			$sql="SELECT Title, Pic, Description, GameFile, ExecutePath, ID, Genre FROM games_DOS WHERE ID = " . htmlspecialchars($_GET["Game"]);
-			
+
 			if ($result=mysqli_query($conn,$sql)) {
 				while ($row=mysqli_fetch_row($result)) {
-				    
+
 				    //set the title and meta description
 				    echo "<script>document.title = '" . $row[0] . " - " . $row[6]. " - Great Old Games';</script>";
 				    echo "<script>document.querySelector('meta[name=\"description\"]').setAttribute(\"content\", \"Play ". $row[0] ." - Genre: ". $row[6] ." - DOS game online now or download the game.\");</script>";
-				    
+
 				    //getGame function
                     echo "<script>";
                     echo "function getGame() {";
@@ -176,14 +175,14 @@
 					echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>";
 					echo "<article>";
 					echo "<h1><span class='icon-fullscreen'></span>" . $row[0] . "</h1>";
-					
+
 					echo "<form action='' method='POST'>";
 					echo "<input type='hidden' name='downloadID' value='". $row[5] ."'>";;
                     echo "<input type='submit' name='downloadUpdate' value='Download Now' class='button small orange rnd5' onclick='getGame()'/>";
                     echo "</form>";
-                    
+
 					//echo "<a href='games/" . $row[3] . "' class='button small orange rnd5'>Download Now</a><br />";
-				
+
 					if ($row[1] == '') {
 						echo "<script type='text/javascript' src='helperScript.js'></script>";
 						echo "<script type='text/javascript'>getGameData('" . $row[0] . "')</script>";
@@ -194,7 +193,7 @@
 					//echo "<img src = '" . $pic . "' style = 'max-width:400px;'><br />";
 					echo $row[2];
 					echo "</article>";
-					
+
 					echo "</li>";
 				}
 			} else {

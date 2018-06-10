@@ -6,10 +6,10 @@
       <!-- ################################################################################################ -->
       <div class="divider2"></div>
       <!-- ################################################################################################ -->
-      
+
             <script>
           //edit title and meta tags
-          
+
           var getQueryString = function ( field, url ) {
             var href = url ? url : window.location.href;
             var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
@@ -19,7 +19,7 @@
               document.title = "Browse By First Letter - " + getQueryString('gamesbyletter') + " - Great Old Games";
               document.querySelector('meta[name="description"]').setAttribute("content", "Browse all DOS Games starting with the letter " + getQueryString('gamesbyletter') + " - Great Old Games");
             </script>
-      
+
       <section class="clear">
 	  	  <center><h1>Search by First Letter</h1></center>
         <ul class="nospace center clear">
@@ -57,11 +57,10 @@
 			<li class="one_third" style="text-align:left;">
 				<?php
 				if(!empty($_GET["gamesbyletter"])) {
-					require "connect.php";
 					if(htmlspecialchars($_GET["gamesbyletter"]) == "[0-9]") {
 						$sql="SELECT Title, Pic, Description, GameFile, ID FROM games_DOS WHERE (LEFT(Title, 1) IN ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'))";
 					} else {
-						
+
 						$sql="SELECT Title, Pic, Description, GameFile, ID FROM games_DOS WHERE Title LIKE '" . htmlspecialchars($_GET["gamesbyletter"]) . "%'";
 					}
 						if ($result=mysqli_query($conn,$sql)) {
@@ -71,7 +70,7 @@
 						} else {
 							echo "Error: " . $sql . "<br>" . $conn->error;
 						}
-					
+
 				}
 			 ?>
 			 </li>
