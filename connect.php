@@ -25,14 +25,6 @@ $conn = $a->connect_to_db();
 
 /**********************************QUERIES*********************************/
 
-/***
-*PAGES: HOME, CATEGORIES
-*/
-//GRAB GENRE
-function grab_genres($conn) {
-  $sql = "SELECT DISTINCT Genre FROM games_DOS";
-  return mysqli_query($conn,$sql);
-}
 
 /***
 *PAGES: HOME

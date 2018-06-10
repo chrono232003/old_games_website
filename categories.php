@@ -31,7 +31,7 @@
 			 <ul class="nospace center clear">
 				<li class="one_third first" style="text-align:left; font-size:20px;">
 					<?php
-						$result = grab_genres($conn);
+						$result = $query->grab_genres();
 						if ($result) {
 								while ($row=mysqli_fetch_row($result)) {
 									echo "<a href = 'categories.php?cat=" . $row[0] . "'>" . $row[0] . "</a><br />";
@@ -43,7 +43,7 @@
 
 					<?php
 						if(!empty($_GET["cat"])) {
-								$result = get_games_by_category($conn);
+								$result = $query->get_games_by_category();
 							if ($result) {
 										while ($row=mysqli_fetch_row($result)) {
 											echo "<a href='game.php?Game=" . $row[4] . "'>" . $row[0] . "</a><br />";

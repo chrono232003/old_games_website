@@ -7,6 +7,9 @@ if (isset($_SESSION['username']) || !empty($_SESSION['username'])) {
 if(isset($_POST['logoutbutton'])) {
 	session_destroy();
 }
+require "connect.php";
+require "query_class.php";
+$query = new Query($conn)
 ?>
 
 <!DOCTYPE html>
@@ -108,8 +111,8 @@ if(isset($_POST['logoutbutton'])) {
         <ul>
 
 		<?php
-			require "connect.php";
-			$result = grab_genres($conn);
+
+			$result = $query->grab_genres();
 			if ($result) {
 					while ($row=mysqli_fetch_row($result)) {
 						echo "<li><a href = 'categories.php?cat=" . $row[0] . "'>" . $row[0] . "</a></li>";
